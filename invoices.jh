@@ -1,0 +1,56 @@
+
+// Entités principales pour la facturation
+entity Client {
+    nom String required
+    email String
+    telephone String
+    siret String
+    adresseLigne1 String
+    adresseLigne2 String
+    codePostal String
+    ville String
+}
+
+entity Facture {
+    numero String required unique
+    dateFacture Instant required
+    dateEcheance Instant
+    statut FactureStatut required
+    notes String
+}
+
+entity LigneFacture {
+    description String required
+    quantite Integer required min(1)
+    prixUnitaireHT Decimal required min(0)
+    tauxTVA Decimal min(0) max(100)
+}
+
+
+// Enums pour les statuts et types
+enum FactureStatut {
+    BROUILLON, ENVOYEE, PAYEE, ANNULEE
+}
+
+enum ModePaiement {
+    VIREMENT, CARTE, CHEQUE, ESPECES
+}
+
+// Relations entre entités
+relationship OneToMany {
+    Client{factures} to Facture{client}
+}
+
+relationship OneToMany {
+    Facture{lignes} to LigneFacture{facture}
+}
+
+
+// Options techniques JHipster
+paginate all with pagination except LigneFacture
+dto * with mapstruct
+service * with serviceImpl
+filter Client, Facture
+
+// Options front-end
+angularSuffix * with Facturation

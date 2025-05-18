@@ -22,8 +22,8 @@ entity Facture {
 entity LigneFacture {
     description String required
     quantite Integer required min(1)
-    prixUnitaireHT Decimal required min(0)
-    tauxTVA Decimal min(0) max(100)
+    prixUnitaireHT Double required min(0)
+    tauxTVA Double min(0) max(100)
 }
 
 

@@ -1,0 +1,28 @@
+{
+  "invoiceApp": {
+    "ligneFacture": {
+      "home": {
+        "title": "LigneFactures",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Ligne Facture",
+        "createOrEditLabel": "Créer ou éditer un Ligne Facture",
+        "notFound": "Aucun Ligne Facture trouvé"
+      },
+      "created": "Un nouveau Ligne Facture a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Ligne Facture avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Ligne Facture avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Ligne Facture {{ id }} ?"
+      },
+      "detail": {
+        "title": "Ligne Facture"
+      },
+      "id": "ID",
+      "description": "Description",
+      "quantite": "Quantite",
+      "prixUnitaireHT": "Prix Unitaire HT",
+      "tauxTVA": "Taux TVA",
+      "facture": "Facture"
+    }
+  }
+}

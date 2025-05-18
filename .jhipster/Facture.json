@@ -1,0 +1,55 @@
+{
+  "angularJSSuffix": "Facturation",
+  "annotations": {
+    "changelogDate": "20250518191925"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "dateFacture",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateEcheance",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "statut",
+      "fieldType": "FactureStatut",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BROUILLON,ENVOYEE,PAYEE,ANNULEE"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Facture",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "ligneFacture",
+      "otherEntityRelationshipName": "facture",
+      "relationshipName": "lignes",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "factures",
+      "relationshipName": "client",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

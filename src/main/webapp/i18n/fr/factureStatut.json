@@ -1,0 +1,11 @@
+{
+  "invoiceApp": {
+    "FactureStatut": {
+      "null": "",
+      "BROUILLON": "BROUILLON",
+      "ENVOYEE": "ENVOYEE",
+      "PAYEE": "PAYEE",
+      "ANNULEE": "ANNULEE"
+    }
+  }
+}

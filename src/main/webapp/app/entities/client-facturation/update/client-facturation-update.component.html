@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-client-facturation-heading" data-cy="ClientCreateUpdateHeading" jhiTranslate="invoiceApp.client.home.createOrEditLabel">
+        Créer ou éditer un Client
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="invoiceApp.client.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nomRef = editForm.get('nom')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_nom" jhiTranslate="invoiceApp.client.nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          @if (nomRef.invalid && (nomRef.dirty || nomRef.touched)) {
+            <div>
+              @if (editForm.get('nom')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_email" jhiTranslate="invoiceApp.client.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_telephone" jhiTranslate="invoiceApp.client.telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_siret" jhiTranslate="invoiceApp.client.siret">Siret</label>
+          <input type="text" class="form-control" name="siret" id="field_siret" data-cy="siret" formControlName="siret" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_adresseLigne1" jhiTranslate="invoiceApp.client.adresseLigne1">Adresse Ligne 1</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adresseLigne1"
+            id="field_adresseLigne1"
+            data-cy="adresseLigne1"
+            formControlName="adresseLigne1"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_adresseLigne2" jhiTranslate="invoiceApp.client.adresseLigne2">Adresse Ligne 2</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adresseLigne2"
+            id="field_adresseLigne2"
+            data-cy="adresseLigne2"
+            formControlName="adresseLigne2"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_codePostal" jhiTranslate="invoiceApp.client.codePostal">Code Postal</label>
+          <input
+            type="text"
+            class="form-control"
+            name="codePostal"
+            id="field_codePostal"
+            data-cy="codePostal"
+            formControlName="codePostal"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ville" jhiTranslate="invoiceApp.client.ville">Ville</label>
+          <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

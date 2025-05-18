@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (client(); as clientRef) {
+      <div>
+        <h2 data-cy="clientDetailsHeading"><span jhiTranslate="invoiceApp.client.detail.title">Client</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ clientRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.nom">Nom</span></dt>
+          <dd>
+            <span>{{ clientRef.nom }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.email">Email</span></dt>
+          <dd>
+            <span>{{ clientRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.telephone">Telephone</span></dt>
+          <dd>
+            <span>{{ clientRef.telephone }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.siret">Siret</span></dt>
+          <dd>
+            <span>{{ clientRef.siret }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.adresseLigne1">Adresse Ligne 1</span></dt>
+          <dd>
+            <span>{{ clientRef.adresseLigne1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.adresseLigne2">Adresse Ligne 2</span></dt>
+          <dd>
+            <span>{{ clientRef.adresseLigne2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.codePostal">Code Postal</span></dt>
+          <dd>
+            <span>{{ clientRef.codePostal }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.client.ville">Ville</span></dt>
+          <dd>
+            <span>{{ clientRef.ville }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/client-facturation', clientRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (facture(); as factureRef) {
+      <div>
+        <h2 data-cy="factureDetailsHeading"><span jhiTranslate="invoiceApp.facture.detail.title">Facture</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ factureRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.facture.numero">Numero</span></dt>
+          <dd>
+            <span>{{ factureRef.numero }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.facture.dateFacture">Date Facture</span></dt>
+          <dd>
+            <span>{{ factureRef.dateFacture | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.facture.dateEcheance">Date Echeance</span></dt>
+          <dd>
+            <span>{{ factureRef.dateEcheance | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.facture.statut">Statut</span></dt>
+          <dd>
+            <span [jhiTranslate]="'invoiceApp.FactureStatut.' + (factureRef.statut ?? 'null')">{{
+              { null: '', BROUILLON: 'BROUILLON', ENVOYEE: 'ENVOYEE', PAYEE: 'PAYEE', ANNULEE: 'ANNULEE' }[factureRef.statut ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.facture.notes">Notes</span></dt>
+          <dd>
+            <span>{{ factureRef.notes }}</span>
+          </dd>
+          <dt><span jhiTranslate="invoiceApp.facture.client">Client</span></dt>
+          <dd>
+            @if (facture()!.client) {
+              <div>
+                <a [routerLink]="['/client-facturation', facture()!.client?.id, 'view']">{{ factureRef.client?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/facture-facturation', factureRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

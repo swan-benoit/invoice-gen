@@ -10,9 +10,9 @@ import { IClientFacturation } from 'app/entities/client-facturation/client-factu
 import { ClientFacturationService } from 'app/entities/client-facturation/service/client-facturation.service';
 import { FactureStatut } from 'app/entities/enumerations/facture-statut.model';
 import { FactureFacturationService } from 'app/entities/facture-facturation/service/facture-facturation.service';
-import { IFactureFacturation } from 'app/entities/facture-facturation/facture-facturation.model';
+import { IFactureFacturation, NewFactureFacturation } from 'app/entities/facture-facturation/facture-facturation.model';
 import { LigneFactureFacturationService } from 'app/entities/ligne-facture-facturation/service/ligne-facture-facturation.service';
-import { ILigneFactureFacturation } from 'app/entities/ligne-facture-facturation/ligne-facture-facturation.model';
+import { ILigneFactureFacturation, NewLigneFactureFacturation } from 'app/entities/ligne-facture-facturation/ligne-facture-facturation.model';
 
 @Component({
   selector: 'jhi-create-invoice',
@@ -110,14 +110,14 @@ export class CreateInvoiceComponent implements OnInit {
     this.isSaving = true;
     const factureData = this.createFromForm();
     
-    this.factureService.create(factureData).subscribe({
+    this.factureService.create(factureData as NewFactureFacturation).subscribe({
       next: (factureResponse: HttpResponse<IFactureFacturation>) => {
         const factureId = factureResponse.body?.id;
         if (factureId) {
           // Create all invoice lines
           const lignesPromises = this.lignesFacture.controls.map(control => {
             const ligneData = control.value;
-            const ligne: ILigneFactureFacturation = {
+            const ligne: NewLigneFactureFacturation = {
               id: null,
               description: ligneData.description,
               quantite: ligneData.quantite,

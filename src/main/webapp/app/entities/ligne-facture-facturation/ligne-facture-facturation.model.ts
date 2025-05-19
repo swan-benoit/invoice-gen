@@ -1,7 +1,7 @@
 import { IFactureFacturation } from 'app/entities/facture-facturation/facture-facturation.model';
 
 export interface ILigneFactureFacturation {
-  id: number;
+  id: number | null;
   description?: string | null;
   quantite?: number | null;
   prixUnitaireHT?: number | null;

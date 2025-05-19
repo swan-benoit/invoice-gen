@@ -1,0 +1,15 @@
+{
+  "invoice": {
+    "details": "Invoice Details",
+    "items": "Invoice Items",
+    "summary": "Summary",
+    "totalHT": "Total (excl. tax)",
+    "totalTVA": "Total VAT",
+    "totalTTC": "Total (incl. tax)",
+    "addLine": "Add line",
+    "totalLine": "Total",
+    "validation": {
+      "formErrors": "Please correct the errors in the form"
+    }
+  }
+}

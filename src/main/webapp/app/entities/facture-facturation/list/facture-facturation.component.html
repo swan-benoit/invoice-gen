@@ -12,7 +12,7 @@
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-facture-facturation"
-        [routerLink]="['/facture-facturation/new']"
+        [routerLink]="['/invoice/create']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="invoiceApp.facture.home.createLabel">Créer un nouveau Facture</span>
@@ -102,7 +102,7 @@
               <td>
                 @if (facture.client) {
                   <div>
-                    <a [routerLink]="['/client-facturation', facture.client.id, 'view']">{{ facture.client.id }}</a>
+                    <a [routerLink]="['/client-facturation', facture.client.id, 'view']">{{ facture.client.nom }}</a>
                   </div>
                 }
               </td>

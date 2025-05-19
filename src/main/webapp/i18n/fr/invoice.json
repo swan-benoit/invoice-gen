@@ -1,0 +1,15 @@
+{
+  "invoice": {
+    "details": "Détails de la facture",
+    "items": "Lignes de facture",
+    "summary": "Résumé",
+    "totalHT": "Total HT",
+    "totalTVA": "Total TVA",
+    "totalTTC": "Total TTC",
+    "addLine": "Ajouter une ligne",
+    "totalLine": "Total",
+    "validation": {
+      "formErrors": "Veuillez corriger les erreurs dans le formulaire"
+    }
+  }
+}

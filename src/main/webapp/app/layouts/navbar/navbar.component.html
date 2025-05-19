@@ -79,6 +79,18 @@
                   <span jhiTranslate="global.menu.entities.ligneFactureFacturation">Ligne Facture</span>
                 </a>
               </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/invoice/create"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="file-invoice" [fixedWidth]="true"></fa-icon>
+                  <span>Créer une facture</span>
+                </a>
+              </li>
               <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             </ul>
           </li>

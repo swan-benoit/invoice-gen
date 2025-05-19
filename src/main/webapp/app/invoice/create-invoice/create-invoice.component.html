@@ -1,0 +1,261 @@
+<div class="d-flex justify-content-center">
+  <div class="col-10">
+    <form name="invoiceForm" [formGroup]="invoiceForm" (ngSubmit)="save()">
+      <h2 id="jhi-create-invoice-heading" class="mb-4">
+        <span jhiTranslate="invoiceApp.facture.home.createLabel">Créer une nouvelle facture</span>
+      </h2>
+
+      <div class="alert alert-warning" *ngIf="invoiceForm.invalid && (invoiceForm.dirty || invoiceForm.touched)">
+        <p jhiTranslate="invoice.validation.formErrors">Veuillez corriger les erreurs dans le formulaire</p>
+      </div>
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h3 class="mb-0" jhiTranslate="invoice.details">Détails de la facture</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label" for="field_numero" jhiTranslate="invoiceApp.facture.numero">Numéro</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="numero"
+                    id="field_numero"
+                    data-cy="numero"
+                    formControlName="numero"
+                  />
+                  <div *ngIf="invoiceForm.get('numero')?.invalid && (invoiceForm.get('numero')?.dirty || invoiceForm.get('numero')?.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="invoiceForm.get('numero')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      Ce champ est obligatoire.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label" for="field_client" jhiTranslate="invoiceApp.facture.client">Client</label>
+                  <select
+                    class="form-control"
+                    id="field_client"
+                    data-cy="client"
+                    name="client"
+                    formControlName="client"
+                  >
+                    <option [ngValue]="null"></option>
+                    <option
+                      [ngValue]="clientOption"
+                      *ngFor="let clientOption of clientsSharedCollection"
+                    >
+                      {{ clientOption.nom }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label" for="field_dateFacture" jhiTranslate="invoiceApp.facture.dateFacture">Date Facture</label>
+                  <div class="d-flex">
+                    <input
+                      id="field_dateFacture"
+                      data-cy="dateFacture"
+                      type="datetime-local"
+                      class="form-control"
+                      name="dateFacture"
+                      formControlName="dateFacture"
+                      placeholder="YYYY-MM-DD HH:mm"
+                    />
+                  </div>
+                  <div *ngIf="invoiceForm.get('dateFacture')?.invalid && (invoiceForm.get('dateFacture')?.dirty || invoiceForm.get('dateFacture')?.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="invoiceForm.get('dateFacture')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      Ce champ est obligatoire.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label" for="field_dateEcheance" jhiTranslate="invoiceApp.facture.dateEcheance">Date Échéance</label>
+                  <div class="d-flex">
+                    <input
+                      id="field_dateEcheance"
+                      data-cy="dateEcheance"
+                      type="datetime-local"
+                      class="form-control"
+                      name="dateEcheance"
+                      formControlName="dateEcheance"
+                      placeholder="YYYY-MM-DD HH:mm"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label" for="field_statut" jhiTranslate="invoiceApp.facture.statut">Statut</label>
+                  <select class="form-control" name="statut" formControlName="statut" id="field_statut" data-cy="statut">
+                    <option [ngValue]="null">{{ 'invoiceApp.FactureStatut.null' | translate }}</option>
+                    <option *ngFor="let factureStatut of factureStatutValues" [value]="factureStatut">
+                      {{ 'invoiceApp.FactureStatut.' + factureStatut | translate }}
+                    </option>
+                  </select>
+                  <div *ngIf="invoiceForm.get('statut')?.invalid && (invoiceForm.get('statut')?.dirty || invoiceForm.get('statut')?.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="invoiceForm.get('statut')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      Ce champ est obligatoire.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="field_notes" jhiTranslate="invoiceApp.facture.notes">Notes</label>
+                <textarea
+                  class="form-control"
+                  name="notes"
+                  id="field_notes"
+                  data-cy="notes"
+                  formControlName="notes"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h3 class="mb-0" jhiTranslate="invoice.summary">Résumé</h3>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <span jhiTranslate="invoice.totalHT">Total HT</span>
+                <span>{{ totalHT | currency:'EUR' }}</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span jhiTranslate="invoice.totalTVA">Total TVA</span>
+                <span>{{ totalTTC - totalHT | currency:'EUR' }}</span>
+              </div>
+              <div class="d-flex justify-content-between font-weight-bold">
+                <span jhiTranslate="invoice.totalTTC">Total TTC</span>
+                <span>{{ totalTTC | currency:'EUR' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="mb-0" jhiTranslate="invoice.items">Lignes de facture</h3>
+          <button type="button" class="btn btn-primary btn-sm" (click)="addLigneFacture()">
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="invoice.addLine">Ajouter une ligne</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="lignesFacture">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th jhiTranslate="invoiceApp.ligneFacture.description">Description</th>
+                    <th jhiTranslate="invoiceApp.ligneFacture.quantite">Quantité</th>
+                    <th jhiTranslate="invoiceApp.ligneFacture.prixUnitaireHT">Prix Unitaire HT</th>
+                    <th jhiTranslate="invoiceApp.ligneFacture.tauxTVA">Taux TVA (%)</th>
+                    <th jhiTranslate="invoice.totalLine">Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ligneGroup of lignesFacture.controls; let i = index" [formGroupName]="i">
+                    <td>
+                      <input type="text" class="form-control" formControlName="description" />
+                      <div *ngIf="ligneGroup.get('description')?.invalid && (ligneGroup.get('description')?.dirty || ligneGroup.get('description')?.touched)">
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('description')?.errors?.required" jhiTranslate="entity.validation.required">
+                          Ce champ est obligatoire.
+                        </small>
+                      </div>
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" formControlName="quantite" min="1" />
+                      <div *ngIf="ligneGroup.get('quantite')?.invalid && (ligneGroup.get('quantite')?.dirty || ligneGroup.get('quantite')?.touched)">
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('quantite')?.errors?.required" jhiTranslate="entity.validation.required">
+                          Ce champ est obligatoire.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('quantite')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                          Ce champ doit être supérieur à 1.
+                        </small>
+                      </div>
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" formControlName="prixUnitaireHT" min="0" step="0.01" />
+                      <div *ngIf="ligneGroup.get('prixUnitaireHT')?.invalid && (ligneGroup.get('prixUnitaireHT')?.dirty || ligneGroup.get('prixUnitaireHT')?.touched)">
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('prixUnitaireHT')?.errors?.required" jhiTranslate="entity.validation.required">
+                          Ce champ est obligatoire.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('prixUnitaireHT')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                          Ce champ doit être supérieur à 0.
+                        </small>
+                      </div>
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" formControlName="tauxTVA" min="0" max="100" step="0.1" />
+                      <div *ngIf="ligneGroup.get('tauxTVA')?.invalid && (ligneGroup.get('tauxTVA')?.dirty || ligneGroup.get('tauxTVA')?.touched)">
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('tauxTVA')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                          Ce champ doit être supérieur à 0.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="ligneGroup.get('tauxTVA')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                          Ce champ doit être inférieur à 100.
+                        </small>
+                      </div>
+                    </td>
+                    <td>
+                      {{ (ligneGroup.value.quantite * ligneGroup.value.prixUnitaireHT) | currency:'EUR' }}
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="removeLigneFacture(i)" [disabled]="lignesFacture.length <= 1">
+                        <fa-icon icon="times"></fa-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary me-2" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="invoiceForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
